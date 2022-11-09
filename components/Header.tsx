@@ -14,7 +14,7 @@ export const Header = ({}: Props) => {
         <header className="grid grid-cols-2 md:grid-cols-5 justify-between items-center p-5">
             <div className="flex items-center space-x-2">
                 <img
-                className="rounded-full h-15 w-20"
+                className="rounded-full h-20 w-20"
                 src="https://ih1.redbubble.net/image.2110784472.0513/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
                 alt=""
                 />
