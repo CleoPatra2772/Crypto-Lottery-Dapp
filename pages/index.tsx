@@ -214,7 +214,12 @@ const Home: NextPage = () => {
       </div>
 
       
-       
+    <footer className='border-t border-emerald-500/20 flex items-center text-white justify-between p-5'>
+      <p className='text-xs text-emerald-900 pl-5'>
+        DISCLAIMER: This website is made for learning purpose only, not intended to be a lure to gambling. If you are gambling online utilizing information from this website, you are doing so completely and totally at your own risk.
+      </p>
+
+    </footer>
       
     </div>
   )
