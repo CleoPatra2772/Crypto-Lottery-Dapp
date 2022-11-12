@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react'
 import { currency } from '../constants'
 import { CountdownTimer } from '../components/CountdownTimer'
 import toast from 'react-hot-toast';
+import { ContractMetadata } from '@thirdweb-dev/sdk'
 
 
 const Home: NextPage = () => {
@@ -57,6 +58,17 @@ const Home: NextPage = () => {
     "getTickets"
   );
 
+  const { data: winnings } = useContractRead(
+    contract,
+    "getWinningsForAddress",
+    address
+  );
+
+  const { mutateAsync: WithdrawWinnings } = useContractWrite(
+    contract,
+    "WithdrawWinnings"
+  )
+
   useEffect(() => {
     if(!tickets) return;
 
@@ -93,7 +105,26 @@ const Home: NextPage = () => {
       });
       console.error("contract call failure", err);
     }
+  };
+
+  const onWithdrawWinnings = async () => {
+      const notification = toast.loading("Withdrawing winnings...");
+      
+      try{
+
+        const data = await WithdrawWinnings([{}]);
+
+      }catch(err){
+        toast.error("Whoops something went wrong!", {
+          id: notification,
+
+        });
+      }
   }
+
+  
+
+
 
 
 
@@ -113,6 +144,17 @@ const Home: NextPage = () => {
 
       <div className='flex-1'>
       <Header />
+
+      {winnings > 0 && (
+        <div className='max-w-md md:max-w-2xl lg:max-w-4xl mx-auto'>
+          <button onClick={onWithdrawWinnings} className='p-5 bg-gradient-to-b from-orange-500 to-emerald-600 animate-pulse text-center rounded-xl w-full'>
+            <p className='font-bold'>Winner !!!</p>
+            <p>Total Winnings: {ethers.utils.formatEther(winnings.toString())} {" "} {currency}</p>
+            <br />
+            <p className='font-semibold'>Click here to withdraw</p>
+          </button>
+        </div>
+      )}
 
 {/* Draw Box */}
 <div className='space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5 '>
